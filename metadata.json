@@ -1,0 +1,8 @@
+{
+  "name": "SAP Akademi Türkiye - S/4HANA İnteraktif Simülatör",
+  "description": "Görsel hafıza ve zihinsel simülasyon odaklı Türkçe SAP S/4HANA (SD, MM, FICO) eğitim platformu ve canlı GUI simülatörü.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
