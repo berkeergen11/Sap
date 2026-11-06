@@ -23,7 +23,7 @@ export const SAP_MODULES: Record<SAPModuleId, ModuleInfo> = {
     badge: 'Öncelikli Eğitim Modülü',
     description: 'Müşteri teklifinden siparişe, sevkiyattan e-Fatura ve e-İrsaliye kesimine kadar tüm satış döngüsü.',
     leadTCode: 'VA01',
-    tCodes: ['VA01', 'VL01N', 'VF01', 'VA03'],
+    tCodes: ['BP', 'VA01', 'VL01N', 'VF01', 'VA03'],
   },
   MM: {
     id: 'MM',
@@ -993,17 +993,49 @@ export const SIMULATION_SCREENS: Record<string, TransactionSimulation> = {
     ],
     tabs: [
       {
+        id: 'tab_item_overview',
+        name: 'Kaleme genel bakış',
+        tableType: 'delivery_items',
+      },
+      {
         id: 'tab_picking',
-        name: 'Toplama (Picking) - En Kritik Sekme',
+        name: 'Çekme',
         tableType: 'delivery_items',
       },
       {
         id: 'tab_loading',
-        name: 'Yükleme & Paketleme',
+        name: 'Yükle',
         fields: [
           {
+            id: 'lddat',
+            label: 'Yükleme Tarihi',
+            techName: 'LIKP-LDDAT',
+            type: 'text',
+            defaultValue: '07.10.2021',
+          },
+          {
+            id: 'lduhr',
+            label: 'Yükleme Saati',
+            techName: 'LIKP-LDUHR',
+            type: 'text',
+            defaultValue: '00:00:00',
+          },
+        ],
+      },
+      {
+        id: 'tab_transport',
+        name: 'Nakliye',
+        fields: [
+          {
+            id: 'route',
+            label: 'Rota (Güzergah)',
+            techName: 'LIKP-ROUTE',
+            type: 'text',
+            defaultValue: '000001 (Kuzey - Güney Koridoru)',
+          },
+          {
             id: 'sofor_ad',
-            label: 'Sürücü Ad Soyad',
+            label: 'Sürücü Ad Soyad (e-İrsaliye)',
             techName: 'LIKP-DRIVER',
             type: 'text',
             defaultValue: 'Ahmet Yılmaz',
@@ -1014,9 +1046,33 @@ export const SIMULATION_SCREENS: Record<string, TransactionSimulation> = {
             techName: 'LIKP-TCKN',
             type: 'text',
             defaultValue: '28491029384',
-            turkeyNote: 'GİB e-İrsaliye denetiminde doğrulanır.',
           },
         ],
+      },
+      {
+        id: 'tab_status_overview',
+        name: 'Duruma genel bakış',
+        fields: [
+          {
+            id: 'kostk',
+            label: 'Toplam Çekme Durumu',
+            techName: 'LIKP-KOSTK',
+            type: 'text',
+            defaultValue: 'A - Henüz çekilmedi (Miktar girilince C olur)',
+          },
+          {
+            id: 'wbstk',
+            label: 'Toplam Mal Hareketi Durumu',
+            techName: 'LIKP-WBSTK',
+            type: 'text',
+            defaultValue: 'A - Henüz işlenmedi (Mal çıkışı ile C olur)',
+          },
+        ],
+      },
+      {
+        id: 'tab_goods_movement',
+        name: 'Mal hareketi verileri',
+        tableType: 'delivery_items',
       },
     ],
     defaultTableItems: [
@@ -4672,5 +4728,141 @@ export const SIMULATION_SCREENS: Record<string, TransactionSimulation> = {
       },
     ],
   },
+
+  BP: {
+    tCode: 'BP',
+    module: 'SD',
+    screenTitle: 'İş Ortağı Bakımı (Maintain Business Partner - S/4HANA CVI)',
+    subTitle: 'S/4HANA 2025 Zorunlu Merkezi Ana Veri Ekranı: Genel (000000), FI Müşteri (FLCU00), SD Müşteri (FLCU01) ve Satıcı (FLVN00/01)',
+    programName: 'SAPLBUS_LOCATOR',
+    screenNumber: '3000',
+    statusBarOnLoad: {
+      type: 'info',
+      code: 'R1 001',
+      message: 'S/4HANA 2025 CVI Aktif: XD01/FD01/XK01 işlemleri kaldırılmıştır. Tüm müşteri ve satıcılar BP üzerinden yönetilir.',
+    },
+    saveSuccessMessage: {
+      code: 'R1 210',
+      messageTemplate: 'İş ortağı {docNo} kaydedildi ve CVI üzerinden KNA1/KNB1/KNVV tablolarıyla senkronize edildi.',
+    },
+    headerFields: [
+      {
+        id: 'bp_number',
+        label: 'İş Ortağı Numarası',
+        techName: 'BUT000-PARTNER',
+        type: 'text',
+        defaultValue: 'TR1923',
+        required: true,
+      },
+      {
+        id: 'bp_role',
+        label: 'İş Ortağı Rolü (BP Role)',
+        techName: 'BUT100-RLTYP',
+        type: 'select',
+        defaultValue: 'FLCU01',
+        required: true,
+        options: [
+          { value: '000000', label: '000000 - İş Ortağı (Genel Veriler / Adres & Vergi No)' },
+          { value: 'FLCU00', label: 'FLCU00 - FI Müşteri (Şirket Kodu & 120 Mutabakat Hesabı)' },
+          { value: 'FLCU01', label: 'FLCU01 - SD Müşteri (Satış Alanı, Fiyat Şeması & Incoterms)' },
+          { value: 'FLVN00', label: 'FLVN00 - FI Satıcı (Şirket Kodu & 320 Mutabakat Hesabı)' },
+          { value: 'FLVN01', label: 'FLVN01 - MM Satıcı (Satınalma Örgütü & Sipariş Para Birimi)' },
+        ],
+      },
+      {
+        id: 'bp_name1',
+        label: 'Unvan / Ad 1',
+        techName: 'BUT000-NAME_ORG1',
+        type: 'text',
+        defaultValue: 'TÜRKİYE ŞUBE (Koçak Lojistik)',
+        required: true,
+      },
+      {
+        id: 'bp_vkn',
+        label: 'Vergi No / VKN (TR0/DE0)',
+        techName: 'DFKKBPTAXNUM-TAXNUM',
+        type: 'text',
+        defaultValue: 'DE192384729 / 5480219482',
+        required: true,
+      },
+    ],
+    tabs: [
+      {
+        id: 'tab_bp_address',
+        name: 'Adres & Vergi Numaraları (BUT000)',
+        fields: [
+          {
+            id: 'bp_street',
+            label: 'Sokak / Cadde ve No',
+            techName: 'ADRC-STREET',
+            type: 'text',
+            defaultValue: 'Neusser Str. 120 / Gebze OSB 4. Cad.',
+          },
+          {
+            id: 'bp_city',
+            label: 'Posta Kodu & Şehir / Ülke',
+            techName: 'ADRC-CITY1',
+            type: 'text',
+            defaultValue: '50765 Köln (DE) / Kocaeli (TR)',
+          },
+        ],
+      },
+      {
+        id: 'tab_bp_fi',
+        name: 'Şirket Kodu Verileri (FLCU00 - KNB1)',
+        fields: [
+          {
+            id: 'bp_bukrs',
+            label: 'Şirket Kodu',
+            techName: 'KNB1-BUKRS',
+            type: 'text',
+            defaultValue: '1010 / TR01',
+          },
+          {
+            id: 'bp_akont',
+            label: 'Mutabakat Hesabı (Reconciliation)',
+            techName: 'KNB1-AKONT',
+            type: 'text',
+            defaultValue: '120000 - Alıcılar (Yurtiçi/Yurtdışı Müşteriler)',
+          },
+          {
+            id: 'bp_zterm',
+            label: 'Ödeme Koşulu',
+            techName: 'KNB1-ZTERM',
+            type: 'text',
+            defaultValue: '0001 (Hemen Net) / Z030 (30 Gün Vadeli)',
+          },
+        ],
+      },
+      {
+        id: 'tab_bp_sd',
+        name: 'Satış ve Dağıtım Verileri (FLCU01 - KNVV)',
+        fields: [
+          {
+            id: 'bp_vkorg',
+            label: 'Satış Örgütü / Dağ. Kanalı / Bölüm',
+            techName: 'KNVV-VKORG',
+            type: 'text',
+            defaultValue: '1010 / 10 / 00 (veya 1000 / 10 / 00)',
+          },
+          {
+            id: 'bp_kalks',
+            label: 'Müşteri Fiyatlandırma Şeması',
+            techName: 'KNVV-KALKS',
+            type: 'text',
+            defaultValue: '1 (Standart RVAA01 Fiyat Şeması)',
+          },
+          {
+            id: 'bp_inco',
+            label: 'Incoterms (Teslim Şekli - İhracat)',
+            techName: 'KNVV-INCO1',
+            type: 'text',
+            defaultValue: 'CIF / EXW — Köln / Gebze',
+          },
+        ],
+      },
+    ],
+  },
 };
+
 

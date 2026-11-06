@@ -21,6 +21,7 @@ import { ArrowFormulaView } from './components/ArrowFormulaView';
 import { QuizLab } from './components/QuizLab';
 import { DictionaryModal } from './components/DictionaryModal';
 import { TurkeyLocalizationGuide } from './components/TurkeyLocalizationGuide';
+import { SapAuditAndArchitectureCenter } from './components/SapAuditAndArchitectureCenter';
 import { sapSound } from './utils/audioEffects';
 import {
   Terminal,
@@ -257,6 +258,20 @@ export default function App() {
               <span>Sistem Performansı</span>
             </button>
 
+            {/* S/4HANA 2025 Audit & Live SE16N DB Inspector Jump Button */}
+            <button
+              onClick={() => setLearningMode('s4hana_audit')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                learningMode === 's4hana_audit'
+                  ? 'bg-indigo-600 text-white font-bold shadow-md shadow-indigo-500/20'
+                  : 'bg-indigo-950/70 text-indigo-300 hover:bg-indigo-900/70 border border-indigo-500/50'
+              }`}
+              title="19 Maddelik S/4HANA 2025 Denetimi, Canlı SE16N Veritabanı (ACDOCA, VBAK, LIKP, VBRK) ve Türkçe Kaynak Doğrulaması"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-indigo-300" />
+              <span>S/4HANA Denetim & SE16N</span>
+            </button>
+
             {/* Fiori Launchpad Jump Button */}
             <button
               onClick={() => setLearningMode('fiori_launchpad')}
@@ -433,11 +448,12 @@ export default function App() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                   {[
                     { code: 'VA01', name: 'Satış Siparişi Yarat', mod: 'SD' },
+                    { code: 'BP', name: 'Muhatap (CVI Müşteri/Satıcı)', mod: 'SD' },
                     { code: 'MIGO', name: 'Mal Kabulü (101)', mod: 'MM' },
                     { code: 'FB60', name: 'Satıcı Faturası Girişi', mod: 'FI' },
                     { code: 'CO01', name: 'Üretim Siparişi Yarat', mod: 'PP' },
                     { code: 'VL01N', name: 'Giden Teslimat (PGI)', mod: 'SD' },
-                    { code: 'VF01', name: 'Fatura Kesimi (GİB)', mod: 'SD' },
+                    { code: 'VF01', name: 'Fatura / Proforma (F2/F5/F8)', mod: 'SD' },
                     { code: 'ME21N', name: 'Satın Alma Siparişi', mod: 'MM' },
                     { code: 'MIRO', name: 'Gelen Satıcı Faturası', mod: 'MM' },
                     { code: 'QA32', name: 'Kalite Muayene Listesi', mod: 'QM' },
@@ -445,7 +461,6 @@ export default function App() {
                     { code: 'LT01', name: 'Transfer Siparişi (Raf)', mod: 'WM' },
                     { code: 'SU01', name: 'Kullanıcı & Yetkiler', mod: 'BASIS' },
                     { code: 'SE11', name: 'ABAP Veri Sözlüğü', mod: 'BASIS' },
-                    { code: 'FB50', name: 'Mahsup Fişi (TDHP)', mod: 'FI' },
                   ].map((item) => {
                     const isActive = currentTCode === item.code;
                     return (
@@ -585,6 +600,16 @@ export default function App() {
 
         {learningMode === 'system_performance' && (
           <SystemPerformanceDashboard
+            onSelectTCode={(code) => {
+              handleSelectTCode(code);
+              setLearningMode('simulator');
+            }}
+            onReturnToMainMenu={() => setLearningMode('fiori_launchpad')}
+          />
+        )}
+
+        {learningMode === 's4hana_audit' && (
+          <SapAuditAndArchitectureCenter
             onSelectTCode={(code) => {
               handleSelectTCode(code);
               setLearningMode('simulator');

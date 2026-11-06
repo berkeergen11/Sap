@@ -249,6 +249,19 @@ export const Header: React.FC<HeaderProps> = ({
               <Activity className="w-3.5 h-3.5 text-emerald-300 animate-pulse" />
               <span>6. Sistem Performansı (SM50 / ST02)</span>
             </button>
+
+            <button
+              onClick={() => onSelectMode('s4hana_audit')}
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+                learningMode === 's4hana_audit'
+                  ? 'bg-indigo-600 text-white shadow-sm font-semibold'
+                  : 'text-indigo-300 hover:text-white bg-indigo-950/40'
+              }`}
+              title="19 Maddelik S/4HANA 2025 Denetim Raporu, SE16N Canlı Tablo İnceleyici (ACDOCA, VBAK, LIKP, VBRK) ve Türkçe Kaynak Doğrulaması"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-indigo-300" />
+              <span>7. S/4HANA 2025 Denetim & SE16N DB</span>
+            </button>
           </div>
 
           <div className="text-[11px] text-slate-400 hidden lg:flex items-center gap-2">

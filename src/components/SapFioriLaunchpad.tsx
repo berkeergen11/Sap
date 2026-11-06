@@ -136,7 +136,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'VF02',
       module: 'SD',
       iconType: 'dollar',
-      subtitle: 'VF02',
     },
     {
       id: 'vf03',
@@ -144,7 +143,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'VF03',
       module: 'SD',
       iconType: 'dollar',
-      subtitle: 'VF03',
     },
     {
       id: 'vl10a',
@@ -157,11 +155,10 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
     {
       id: 'vf04',
       title: 'Faturalama belgeleri oluştur',
-      subtitle: 'VF04 (İş Listesi)',
+      subtitle: 'VF04',
       tCode: 'VF04',
       module: 'SD',
       iconType: 'dollar',
-      badge: 'Videodaki Odak',
     },
     {
       id: 'vl09',
@@ -182,7 +179,7 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
     {
       id: 'vk12',
       title: 'Fiyatları yönet',
-      subtitle: 'Satış (Değiştir)',
+      subtitle: 'Satış',
       tCode: 'VK12',
       module: 'SD',
       iconType: 'dollar',
@@ -192,7 +189,7 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
     {
       id: 'vk13',
       title: 'Fiyatları yönet',
-      subtitle: 'Satış (Görüntüle)',
+      subtitle: 'Satış',
       tCode: 'VK13',
       module: 'SD',
       iconType: 'dollar',
@@ -203,7 +200,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'MM02',
       module: 'MM',
       iconType: 'cube',
-      subtitle: 'MM02',
     },
     {
       id: 'kpi_analyze',
@@ -230,8 +226,8 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       iconType: 'kpi_number',
       kpiData: {
         type: 'big_number',
-        bigNumber: '26,0 B',
-        subLabel: 'Açık Sipariş Kalemi',
+        bigNumber: '25,9 B',
+        subLabel: '',
       },
     },
     {
@@ -240,7 +236,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'VA03',
       module: 'SD',
       iconType: 'document',
-      subtitle: 'SD Doğrulama',
     },
     {
       id: 'customer_overview',
@@ -248,12 +243,11 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'XD03',
       module: 'SD',
       iconType: 'user',
-      subtitle: 'BP / XD03',
     },
     {
       id: 'delivery_perf',
       title: 'Teslimat performansını analiz et',
-      subtitle: 'Planlandığı gibi sevk...',
+      subtitle: 'Planlandığı gibi sevk ...',
       tCode: 'VL06O',
       module: 'SD',
       iconType: 'chart_line',
@@ -266,7 +260,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'VF03',
       module: 'SD',
       iconType: 'dollar',
-      subtitle: 'Fatura Takip',
     },
     {
       id: 'va05',
@@ -282,7 +275,6 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'VL06O',
       module: 'SD',
       iconType: 'truck',
-      subtitle: 'VL06O',
     },
     {
       id: 'v01',
@@ -298,23 +290,22 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
       tCode: 'V.21',
       module: 'SD',
       iconType: 'list',
-      subtitle: 'V.21',
     },
   ];
 
-  // Category Tabs mapping - All Enterprise Department Spaces (S/4HANA Spaces & Pages)
+  // Exact Category Tabs from Screenshot image_e3c6e37f.png / IMG_3025_a4c840e6.jpeg
   const categoryTabs = [
-    { id: 'home', label: '📦 Satış & Sevkiyat (SD)', badge: '26' },
-    { id: 'mm_space', label: '🏭 Satınalma & Depo (MM/WM)', badge: '10' },
-    { id: 'fi_space', label: '💰 Mali İşler & Finans (FI/CO)', badge: '10' },
-    { id: 'pp_space', label: '⚙️ Üretim & Kalite (PP/QM)', badge: '7' },
-    { id: 'pm_space', label: '🔧 Tesis Bakım (PM)', badge: '4' },
-    { id: 'basis_space', label: '👥 İK & Sistem (HCM/BASIS)', badge: '5' },
+    { id: 'home', label: 'Ana sayfam' },
     { id: 'settings', label: 'Geçerli ayarlar' },
     { id: 'master_data', label: 'Ana veriler' },
     { id: 'journal', label: 'Yevmiye kayıtları' },
-    { id: 'asset_periodic', label: 'Duran varlık dönemsel aktiviteler' },
-    { id: 'asset_reports', label: 'Duran varlık raporlama' },
+    { id: 'asset_periodic', label: 'Duran varlık muhasebesi için dönemsel aktiviteler' },
+    { id: 'asset_reports', label: 'Duran varlık muhasebesi için raporlama' },
+    { id: 'mm_space', label: 'Satınalma & Depo (MM/WM)' },
+    { id: 'fi_space', label: 'Mali İşler & Finans (FI/CO)' },
+    { id: 'pp_space', label: 'Üretim & Kalite (PP/QM)' },
+    { id: 'pm_space', label: 'Tesis Bakım (PM)' },
+    { id: 'basis_space', label: 'İK & Sistem (HCM/BASIS)' },
   ];
 
   // MM & WM Department Space Tiles
@@ -673,32 +664,34 @@ export const SapFioriLaunchpad: React.FC<SapFioriLaunchpadProps> = ({
         </div>
       </div>
 
-      {/* 2. Category Tab Navigation (Directly from Screenshots) */}
-      <div className="bg-[#21354b] px-4 border-b border-white/10 flex items-center gap-1 overflow-x-auto scrollbar-none">
-        {categoryTabs.map((tab) => {
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => {
-                setActiveTab(tab.id);
-                sapSound.playTab();
-              }}
-              className={`px-3.5 py-3 text-xs font-semibold whitespace-nowrap transition-all relative border-b-2 flex items-center gap-1.5 ${
-                isActive
-                  ? 'border-sky-400 text-white font-bold'
-                  : 'border-transparent text-white/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <span>{tab.label}</span>
-              {tab.id === 'home' && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-500/30 text-sky-300 font-mono">
-                  26
-                </span>
-              )}
-            </button>
-          );
-        })}
+      {/* 2. Category Tab Navigation (Directly from Screenshot image_e3c6e37f.png) */}
+      <div className="bg-[#2c4056] px-6 border-b border-white/10 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-4 overflow-x-auto scrollbar-none">
+          {categoryTabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => {
+                  setActiveTab(tab.id);
+                  sapSound.playTab();
+                }}
+                className={`py-2.5 text-xs whitespace-nowrap transition-all relative border-b-2 flex items-center gap-1.5 ${
+                  isActive
+                    ? 'border-white text-white font-semibold'
+                    : 'border-transparent text-white/80 hover:text-white'
+                }`}
+              >
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="flex items-center gap-2 text-xs text-white/80 shrink-0 pl-2">
+          <span>Dar</span>
+          <span>&gt;</span>
+          <ChevronDown className="w-3.5 h-3.5" />
+        </div>
       </div>
 
       {/* 3. Sub-Banner Context Strip */}

@@ -25,7 +25,8 @@ export type LearningMode =
   | 'arrow_formula'
   | 'quiz_lab'
   | 'turkey_localization'
-  | 'system_performance';
+  | 'system_performance'
+  | 's4hana_audit';
 
 export interface CoordinateMap {
   title: string;
